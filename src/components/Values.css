@@ -1,0 +1,9 @@
+.green {
+  color: rgb(3, 200, 39);
+  font-weight: 900;
+  box-shadow: 0 0 30px greenyellow;
+}
+
+.one-dice {
+  text-align: center;
+}

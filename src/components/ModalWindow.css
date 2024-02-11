@@ -1,0 +1,28 @@
+.modal-footer {
+  display: block;
+}
+.one-button {
+  min-width: 70px;
+}
+.one-dice {
+  text-align: center;
+}
+.one-dice Button {
+  min-width: 50px;
+}
+.one-badge {
+  position: absolute;
+}
+.reserve {
+  height: 120px;
+}
+.reserve p {
+  margin: 5px;
+  font-size: 2rem;
+  height: 1em;
+  line-height: 1em;
+  font-weight: 600;
+}
+.vysledek {
+  color: rgb(255, 47, 47);
+}
