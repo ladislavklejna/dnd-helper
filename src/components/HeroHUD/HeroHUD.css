@@ -47,7 +47,7 @@
 
 .name-atribut {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 4.5vw;
 }
 
 .hp {
@@ -81,4 +81,21 @@
 .rest-option {
   border: 1px solid black;
   height: 100px;
+}
+/* .profienci-div {
+  height: 100px;
+} */
+.profienci-number {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  text-align: center;
+}
+.profienci-text {
+  text-align: center;
+  font-weight: 700;
+}
+
+.iniciativa {
+  border: 1px solid black;
 }

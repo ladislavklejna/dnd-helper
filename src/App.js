@@ -10,16 +10,19 @@ function App() {
   const isConfirmed = () => {
     setConfirm(true);
   };
+  const storedData = JSON.parse(localStorage.getItem("hero"));
+
   return (
     <div className="App">
       <Container className="xxx">
-        {!confirm && <MakeHero confirmed={isConfirmed} />}
-        {confirm && (
+        {!storedData && <MakeHero confirmed={isConfirmed} />}
+        {(confirm || storedData) && (
           <>
             <HeroHUD />
             <Dice />
           </>
         )}
+        {/* <MakeHero /> */}
       </Container>
     </div>
   );

@@ -5,6 +5,7 @@ let bonuses = [];
 const MakeHero = ({ confirmed }) => {
   const [disabled, setDisabled] = useState(false);
   const [nick, setNick] = useState("");
+  const [level, setLevel] = useState(1);
 
   const [heroAtributs, setHeroAtributs] = useState({
     Síla: "20",
@@ -23,6 +24,7 @@ const MakeHero = ({ confirmed }) => {
     localStorage.setItem("bonus", JSON.stringify(bonuses));
     localStorage.setItem("name", JSON.stringify(nick));
     localStorage.setItem("hp", JSON.stringify(live));
+    localStorage.setItem("level", JSON.stringify(level));
   };
   const accept = () => {
     for (let key in heroAtributs) {
@@ -57,6 +59,12 @@ const MakeHero = ({ confirmed }) => {
   console.log(live);
   return (
     <div>
+      <Input
+        type="number"
+        name="level"
+        onChange={(e) => setLevel(e.target.value)}
+        value={level}
+      />
       <Input
         type="number"
         name="Síla"

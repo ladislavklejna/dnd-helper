@@ -3,15 +3,17 @@ import "./HeroHUD.css";
 import { FaHeartPulse } from "react-icons/fa6";
 import { Row, Col, Button, Input } from "reactstrap";
 import { FaDribbbleSquare } from "react-icons/fa";
+import ModalWin from "./ModalWin";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
   const [dmgOrHealValue, setDmgOrHealValue] = useState(0);
   const data = Object.entries(JSON.parse(localStorage.getItem("hero")));
   const bonuses = JSON.parse(localStorage.getItem("bonus"));
   const name = JSON.parse(localStorage.getItem("name"));
-
+  const level = JSON.parse(localStorage.getItem("level"));
+  const [showInitiativeRoll, setShowInitiativeRoll] = useState(false);
+  const [initiativeDice, setInicitaveDice] = useState(0);
   const [hp, setHp] = useState(Number(JSON.parse(localStorage.getItem("hp"))));
-  console.log(bonuses);
 
   const hpWindow = () => {
     setWindowHpShow(!windowHpShow);
@@ -26,8 +28,13 @@ const Hero = () => {
     setHp(hp - dmgOrHealValue);
     setWindowHpShow(!windowHpShow);
   };
+  const initiativeRoll = () => {
+    console.log("click");
+    setInicitaveDice(Math.floor(Math.random() * 20 + 1));
+    setShowInitiativeRoll(!showInitiativeRoll);
+  };
   const [showRests, setShowRests] = useState(false);
-  console.log(dmgOrHealValue);
+  const iniciativa = bonuses[1];
   return (
     <div>
       <Row>
@@ -82,6 +89,7 @@ const Hero = () => {
           {/* HP  WINDOW  OUT*/}
         </Col>
       </Row>
+      {/* ODPOCINEK */}
       {showRests && (
         <div>
           <Row className="rest-option">
@@ -97,6 +105,31 @@ const Hero = () => {
           </Row>
         </div>
       )}
+      {/* jinou tridu a bude tady iniciativa ZB a Oč */}
+      <Row className="profienci-div">
+        <Col xs={3}>
+          <p className="profienci-number">+4</p>
+          <p className="profienci-text">zdatnostni bonus</p>
+        </Col>
+        <Col onClick={initiativeRoll} className="iniciativa">
+          <p className="profienci-number">
+            {iniciativa > 0 ? "+" + iniciativa : iniciativa}
+          </p>
+          <p className="profienci-text">iniciativa</p>
+        </Col>
+        <Col>
+          <p className="profienci-number">6</p>
+          <p className="profienci-text">
+            Rychlost <br />
+            (sahu)
+          </p>
+        </Col>
+        <Col>
+          <p className="profienci-number">16</p>
+          <p className="profienci-text">Obranné cislo</p>
+        </Col>
+      </Row>
+      {/* ATRIBUTY A BONUSY */}
       <Row>
         {data.map((xx, index) => (
           <Col key={index} xs={4} className="mt-3">
@@ -112,6 +145,11 @@ const Hero = () => {
           </Col>
         ))}
       </Row>
+      <ModalWin
+        onToggle={showInitiativeRoll}
+        initiativeDice={initiativeDice}
+        initiativeBonus={iniciativa}
+      />
     </div>
   );
 };
