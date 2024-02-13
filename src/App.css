@@ -1,5 +1,7 @@
 .App {
   height: 200vh;
+  /* background: #222831; */
+  background-color: gray;
 }
 .xxx {
   border: 1px solid red;
