@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./HeroHUD.css";
 import { FaHeartPulse } from "react-icons/fa6";
 import { Row, Col, Button, Input } from "reactstrap";
@@ -7,6 +7,7 @@ import ModalWin from "./ModalWin";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
   const [dmgOrHealValue, setDmgOrHealValue] = useState(0);
+  const [profienciBonus, setProfienciBonus] = useState(0);
   const data = Object.entries(JSON.parse(localStorage.getItem("hero")));
   const bonuses = JSON.parse(localStorage.getItem("bonus"));
   const name = JSON.parse(localStorage.getItem("name"));
@@ -35,6 +36,22 @@ const Hero = () => {
   };
   const [showRests, setShowRests] = useState(false);
   const iniciativa = bonuses[1];
+  useEffect(() => {
+    if (level <= 4) {
+      setProfienciBonus(2);
+    } else if (level <= 4) {
+      setProfienciBonus(2);
+    } else if (level <= 8) {
+      setProfienciBonus(3);
+    } else if (level <= 12) {
+      setProfienciBonus(4);
+    } else if (level <= 16) {
+      setProfienciBonus(5);
+    } else {
+      setProfienciBonus(6);
+    }
+  }, []);
+
   return (
     <div>
       <Row>
@@ -108,7 +125,7 @@ const Hero = () => {
       {/* jinou tridu a bude tady iniciativa ZB a Oč */}
       <Row className="profienci-div">
         <Col xs={3}>
-          <p className="profienci-number">+4</p>
+          <p className="profienci-number">{profienciBonus}</p>
           <p className="profienci-text">zdatnostni bonus</p>
         </Col>
         <Col onClick={initiativeRoll} className="iniciativa">
