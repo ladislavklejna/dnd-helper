@@ -5,6 +5,7 @@ import { FaHeartPulse } from "react-icons/fa6";
 import { Row, Col, Button, Input, Progress } from "reactstrap";
 import ModalWin from "./ModalWin";
 import CommaButtons from "./CommaButtons";
+import MyButton from "../MyButton";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
   const [dmgOrHealValue, setDmgOrHealValue] = useState("");
@@ -27,13 +28,12 @@ const Hero = () => {
     } else {
       setHp(hp + dmgOrHealValue);
     }
-    setTimeout(() => {
-      setWindowHpShow(!windowHpShow);
-    }, 2000);
+    // setTimeout(() => {
+    //   setWindowHpShow(!windowHpShow);
+    // }, 2000);
     setDmgOrHealValue("");
     if (hp + dmgOrHealValue > 0) {
       setComma(false);
-      console.log("commacheck");
     }
   };
   const damage = () => {
@@ -44,8 +44,6 @@ const Hero = () => {
       setHp(hp - dmgOrHealValue);
     }
     setDmgOrHealValue("");
-
-    // setWindowHpShow(!windowHpShow);
   };
 
   const initiativeRoll = () => {
@@ -55,6 +53,8 @@ const Hero = () => {
   };
   const [showRests, setShowRests] = useState(false);
   const iniciativa = bonuses[1];
+
+  console.log(dmgOrHealValue);
   useEffect(() => {
     if (level <= 4) {
       setProfienciBonus(2);
@@ -89,21 +89,37 @@ const Hero = () => {
                 <Button onClick={hpWindow}>&lt; Zpet</Button>
                 <Row className="offset-healOrDamage text-center">
                   <Col>
-                    <Button name="damage" color="danger" onClick={damage}>
-                      Zraneni
+                    <Button
+                      disabled={
+                        parseInt(dmgOrHealValue) < 0 || dmgOrHealValue === ""
+                      }
+                      name="damage"
+                      color="danger"
+                      onClick={damage}
+                    >
+                      Zranění
                     </Button>
+                    {/* <MyButton
+                      id={"damage"}
+                      color={"danger"}
+                      label={"Zranění"}
+                      buttonHandler={handleButton}
+                    /> */}
                   </Col>
                   <Col>
                     <FaHeartPulse size={60} />
                   </Col>
                   <Col>
                     <Button
+                      disabled={
+                        parseInt(dmgOrHealValue) < 0 || dmgOrHealValue === ""
+                      }
                       name="heal"
                       className="heal"
                       color="success"
                       onClick={heal}
                     >
-                      Leceni
+                      Léčení
                     </Button>
                   </Col>
                 </Row>
@@ -121,24 +137,42 @@ const Hero = () => {
                   </Col>
                 </Row>
                 <Row>
-                  <Col xs={6} className="offset-3">
+                  <Col xs={6} className="damage-or-heal offset-3">
                     <Input
                       className="text-center mb-3"
                       min={0}
                       type="number"
                       placeholder="hodnota"
-                      onChange={(e) =>
-                        setDmgOrHealValue(Number(e.target.value))
-                      }
+                      onChange={(e) => setDmgOrHealValue(e.target.value)}
                       value={dmgOrHealValue}
                     />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={3} className="offset-3">
+                    <Button
+                      disabled={dmgOrHealValue <= 0}
+                      onClick={() => setDmgOrHealValue(dmgOrHealValue - 1)}
+                      block
+                    >
+                      -
+                    </Button>
+                  </Col>
+                  <Col xs={3}>
+                    <Button
+                      onClick={() =>
+                        setDmgOrHealValue(Number(dmgOrHealValue) + 1)
+                      }
+                      block
+                    >
+                      +
+                    </Button>
                   </Col>
                 </Row>
 
                 {/* COMMA */}
                 {comma && (
                   <Row className="comma">
-                    <h3>upadl jsi do bezvedomi</h3>
                     <CommaButtons />
                   </Row>
                 )}
@@ -191,7 +225,7 @@ const Hero = () => {
       {/* ATRIBUTY A BONUSY */}
       <Row>
         {data.map((xx, index) => (
-          <Col key={index} xs={4} className="mt-3">
+          <Col key={index} xs={4} className="mt-4">
             <div className="atributy">
               <p className="text-center name-atribut">{xx[0]}</p>
               <p className="number-atribut">{xx[1]}</p>

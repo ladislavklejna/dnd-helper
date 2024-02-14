@@ -34,7 +34,9 @@ function CommaButtons() {
   }, [smrt, zivoty]);
 
   return (
-    <div className="mt-5">
+    <div className="mt-2">
+      <h3 className="text-center mb-5">upadl jsi do bezvedomi</h3>
+
       <Row className="relative">
         <Col className="px-2">
           <Progress color="danger" max={3} value={smrt} />
