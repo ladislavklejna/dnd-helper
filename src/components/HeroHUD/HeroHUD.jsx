@@ -1,34 +1,53 @@
 import React, { useState, useEffect } from "react";
 import "./HeroHUD.css";
 import { FaHeartPulse } from "react-icons/fa6";
-import { Row, Col, Button, Input } from "reactstrap";
-import { FaDribbbleSquare } from "react-icons/fa";
+
+import { Row, Col, Button, Input, Progress } from "reactstrap";
 import ModalWin from "./ModalWin";
+import CommaButtons from "./CommaButtons";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
-  const [dmgOrHealValue, setDmgOrHealValue] = useState(0);
+  const [dmgOrHealValue, setDmgOrHealValue] = useState("");
   const [profienciBonus, setProfienciBonus] = useState(0);
   const data = Object.entries(JSON.parse(localStorage.getItem("hero")));
   const bonuses = JSON.parse(localStorage.getItem("bonus"));
   const name = JSON.parse(localStorage.getItem("name"));
   const level = JSON.parse(localStorage.getItem("level"));
+  const maxHp = Number(JSON.parse(localStorage.getItem("hp")));
+  const [comma, setComma] = useState(false);
   const [showInitiativeRoll, setShowInitiativeRoll] = useState(false);
   const [initiativeDice, setInicitaveDice] = useState(0);
   const [hp, setHp] = useState(Number(JSON.parse(localStorage.getItem("hp"))));
-
   const hpWindow = () => {
     setWindowHpShow(!windowHpShow);
   };
   const heal = () => {
-    setHp(hp + dmgOrHealValue);
+    if (hp + dmgOrHealValue >= maxHp) {
+      setHp(maxHp);
+    } else {
+      setHp(hp + dmgOrHealValue);
+    }
     setTimeout(() => {
       setWindowHpShow(!windowHpShow);
     }, 2000);
+    setDmgOrHealValue("");
+    if (hp + dmgOrHealValue > 0) {
+      setComma(false);
+      console.log("commacheck");
+    }
   };
   const damage = () => {
-    setHp(hp - dmgOrHealValue);
-    setWindowHpShow(!windowHpShow);
+    if (hp - dmgOrHealValue <= 0) {
+      setHp(0);
+      setComma(true);
+    } else {
+      setHp(hp - dmgOrHealValue);
+    }
+    setDmgOrHealValue("");
+
+    // setWindowHpShow(!windowHpShow);
   };
+
   const initiativeRoll = () => {
     console.log("click");
     setInicitaveDice(Math.floor(Math.random() * 20 + 1));
@@ -61,14 +80,14 @@ const Hero = () => {
         <Col>{name}</Col>
         <Col className="hp">
           <Button onClick={hpWindow}>
-            {hp} / {hp}
+            {hp} / {maxHp}
           </Button>
           {/* HP  WINDOW */}
           {windowHpShow && (
             <Row>
-              <div className="slide-in-right">
-                <Col xs={12}></Col>
-                <Row>
+              <div className="slide-in-right pt-3">
+                <Button onClick={hpWindow}>&lt; Zpet</Button>
+                <Row className="offset-healOrDamage text-center">
                   <Col>
                     <Button name="damage" color="danger" onClick={damage}>
                       Zraneni
@@ -76,7 +95,6 @@ const Hero = () => {
                   </Col>
                   <Col>
                     <FaHeartPulse size={60} />
-                    {hp}
                   </Col>
                   <Col>
                     <Button
@@ -91,15 +109,39 @@ const Hero = () => {
                 </Row>
                 <Row>
                   <Col xs={6} className="offset-3">
-                    <Input
-                      type="number"
-                      onChange={(e) =>
-                        setDmgOrHealValue(Number(e.target.value))
-                      }
+                    <p className="hp-under-icon text-center">{hp}</p>
+                    <Progress
+                      className="my-2"
+                      min={0}
+                      max={maxHp}
+                      value={hp}
+                      color="danger"
+                      animated
                     />
                   </Col>
                 </Row>
-                <Button onClick={hpWindow}>Potvrdit</Button>
+                <Row>
+                  <Col xs={6} className="offset-3">
+                    <Input
+                      className="text-center mb-3"
+                      min={0}
+                      type="number"
+                      placeholder="hodnota"
+                      onChange={(e) =>
+                        setDmgOrHealValue(Number(e.target.value))
+                      }
+                      value={dmgOrHealValue}
+                    />
+                  </Col>
+                </Row>
+
+                {/* COMMA */}
+                {comma && (
+                  <Row className="comma">
+                    <h3>upadl jsi do bezvedomi</h3>
+                    <CommaButtons />
+                  </Row>
+                )}
               </div>
             </Row>
           )}

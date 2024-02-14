@@ -1,0 +1,33 @@
+.relative {
+  position: relative;
+}
+
+.revert {
+  transform: rotateY(180deg);
+}
+/* .abs {
+  position: absolute;
+} */
+.icon-background {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50%;
+  top: 0px;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.comma-middle-icon {
+  padding: 10px;
+}
+.back-red {
+  background-color: red;
+}
+.back-green {
+  background-color: rgb(0, 255, 13);
+}

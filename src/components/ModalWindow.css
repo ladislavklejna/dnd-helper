@@ -14,12 +14,12 @@
   position: absolute;
 }
 .reserve {
-  height: 120px;
+  min-height: fit-content;
 }
 .reserve p {
   margin: 5px;
   font-size: 2rem;
-  height: 1em;
+  height: 1.5em;
   line-height: 1em;
   font-weight: 600;
 }

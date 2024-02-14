@@ -99,3 +99,22 @@
 .iniciativa {
   border: 1px solid black;
 }
+.offset-healOrDamage {
+  margin-top: 10vh;
+}
+.offset-healOrDamage Button {
+  min-width: 100px;
+  margin-top: 10px;
+}
+.comma {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.comma div.col {
+  text-align: center;
+  padding: 0;
+}
+.hp-under-icon {
+  font-size: 2rem;
+}
