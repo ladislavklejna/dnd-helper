@@ -14,7 +14,7 @@ function App() {
 
   return (
     <div className="App">
-      <Container className="xxx">
+      <Container>
         {!storedData && <MakeHero confirmed={isConfirmed} />}
         {(confirm || storedData) && (
           <>

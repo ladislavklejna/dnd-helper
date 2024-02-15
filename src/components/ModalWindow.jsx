@@ -64,7 +64,7 @@ function ModalWindow(props, args) {
         poleKostek.push(getRandomInt(20));
       }
     });
-    poleKostek.sort();
+    poleKostek.sort((a, b) => a - b);
     setVypis(poleKostek);
   };
 
@@ -89,8 +89,8 @@ function ModalWindow(props, args) {
           </Row>
 
           <div className="reserve mt-5">
-            <p className="text-center ">{vypis.join(" + ")}</p>
-            <p className="text-center">=</p>
+            <p className="rolled-numbers text-center ">{vypis.join(" + ")}</p>
+            <p className="rolled-numbers text-center">=</p>
             <p className="text-center vysledek">{sum}</p>
           </div>
         </ModalBody>

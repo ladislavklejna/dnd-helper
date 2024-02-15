@@ -1,8 +1,13 @@
 .App {
   height: 200vh;
   /* background: #222831; */
-  background-color: gray;
+  /* background-color: gray; */
+  background-color: #201f25;
 }
 .xxx {
   border: 1px solid red;
+}
+
+p {
+  color: aliceblue;
 }

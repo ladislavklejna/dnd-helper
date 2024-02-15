@@ -2,7 +2,7 @@
   color: black;
 }
 .dice {
-  width: 80px;
+  width: 50px;
   height: auto;
 }
 .round-button {
@@ -10,6 +10,6 @@
   padding: 15px;
   color: red;
   position: fixed;
-  bottom: 5%;
-  right: 10%;
+  bottom: 3%;
+  right: 5%;
 }

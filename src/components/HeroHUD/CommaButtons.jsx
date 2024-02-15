@@ -43,7 +43,7 @@ function CommaButtons() {
           {smrt}
         </Col>
         <div
-          className={`icon-background ${liveIcon ? "back-green" : ""} ${
+          className={`icon-background mt-2 ${liveIcon ? "back-green" : ""} ${
             liveIcon === false ? "back-red" : ""
           }`}
         >

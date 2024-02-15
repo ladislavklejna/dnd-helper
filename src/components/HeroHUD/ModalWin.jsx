@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-
-function ModalWin({ onToggle, initiativeDice, initiativeBonus }, args) {
+import "./ModalWin.css";
+function ModalWin({ onToggle, diceValue, bonusValue, title }, args) {
   const [modal, setModal] = useState(true);
   const toggle = () => setModal(!modal);
 
@@ -10,12 +10,12 @@ function ModalWin({ onToggle, initiativeDice, initiativeBonus }, args) {
   }, [onToggle]);
   return (
     <div>
-      <Modal isOpen={modal} toggle={toggle} {...args}>
-        <ModalHeader toggle={toggle}>Iniciativa</ModalHeader>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>{title}</ModalHeader>
         <ModalBody>
-          {initiativeDice} + {initiativeBonus}
+          {diceValue} {bonusValue < 0 ? "" : "+"} {bonusValue}
           <br></br>= <br></br>
-          {initiativeBonus + initiativeDice}
+          <div className="text-red">{diceValue + bonusValue}</div>
         </ModalBody>
       </Modal>
     </div>
