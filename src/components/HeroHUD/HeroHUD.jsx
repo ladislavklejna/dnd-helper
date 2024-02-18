@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./HeroHUD.css";
 import { FaHeartPulse } from "react-icons/fa6";
-
+import Inventory from "./Inventory";
 import { Row, Col, Button, Input, Progress } from "reactstrap";
 import ModalWin from "./ModalWin";
 import CommaButtons from "./CommaButtons";
+import ArmorNumber from "./ArmorNumber/ArmorNumber";
+import SpellStack from "./SpellStack/SpellStack";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
   const [dmgOrHealValue, setDmgOrHealValue] = useState("");
@@ -14,26 +16,34 @@ const Hero = () => {
   const name = JSON.parse(localStorage.getItem("name"));
   const level = JSON.parse(localStorage.getItem("level"));
   const maxHp = Number(JSON.parse(localStorage.getItem("hp")));
+  const aktHp = Number(JSON.parse(localStorage.getItem("aktualHp")));
+  const ac = Number(JSON.parse(localStorage.getItem("ac")));
+  const [oc, setOc] = useState(ac);
   const [comma, setComma] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [dice, setDice] = useState(0);
   const [bonus, setBonus] = useState(0);
   const [title, setTitle] = useState("");
-  const [hp, setHp] = useState(Number(JSON.parse(localStorage.getItem("hp"))));
+  const [hp, setHp] = useState(aktHp);
+  const [showArmorNumber, setShowArmorNumber] = useState(false);
+
   const iniciativa = bonuses[1];
 
+  const storeActualHP = (hpcka) => {
+    localStorage.setItem("aktualHp", JSON.stringify(hpcka));
+  };
   const hpWindow = () => {
     setWindowHpShow(!windowHpShow);
+    storeActualHP(hp);
   };
+  console.log(ac);
   const heal = () => {
     if (hp + dmgOrHealValue >= maxHp) {
       setHp(maxHp);
     } else {
       setHp(hp + dmgOrHealValue);
     }
-    // setTimeout(() => {
-    //   setWindowHpShow(!windowHpShow);
-    // }, 2000);
+
     setDmgOrHealValue("");
     if (hp + dmgOrHealValue > 0) {
       setComma(false);
@@ -108,7 +118,6 @@ const Hero = () => {
   };
   const [showRests, setShowRests] = useState(false);
 
-  console.log(dmgOrHealValue);
   useEffect(() => {
     if (level <= 4) {
       setProfienciBonus(2);
@@ -124,12 +133,21 @@ const Hero = () => {
       setProfienciBonus(6);
     }
   }, []);
-
+  const armorNumber = () => {
+    setShowArmorNumber(!showArmorNumber);
+  };
+  const onAct = (id) => {
+    setOc(id);
+  };
   return (
     <div className="pt-3">
       <Row className="text-center mb-3">
         <Col>
-          <Button onClick={() => setShowRests(true)}>Odpocinek</Button>
+          <Button className="mb-3" onClick={() => setShowRests(true)}>
+            Odpocinek
+          </Button>
+          <Inventory />
+          <SpellStack />
         </Col>
         <Col>
           <img className="avatar" src="foto.png" />
@@ -282,8 +300,8 @@ const Hero = () => {
             (sahu)
           </p>
         </Col>
-        <Col>
-          <p className="profienci-number">16</p>
+        <Col onClick={armorNumber}>
+          <p className="profienci-number">{oc}</p>
           <p className="profienci-text">Obranné cislo</p>
         </Col>
       </Row>
@@ -312,6 +330,12 @@ const Hero = () => {
         diceValue={dice}
         bonusValue={bonus}
         title={title}
+      />
+
+      <ArmorNumber
+        onToggle={showArmorNumber}
+        dexBonus={bonuses[1]}
+        onAct={onAct}
       />
     </div>
   );

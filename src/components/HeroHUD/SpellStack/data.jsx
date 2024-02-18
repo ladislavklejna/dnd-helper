@@ -1,0 +1,58 @@
+const data = [
+  {
+    id: 1,
+    level: 3,
+    name: "Ohniva koule",
+    dmg: "8k6",
+    range: "30s",
+    time: "ihned",
+    focus: false,
+  },
+  {
+    id: 2,
+    level: 2,
+    name: "Spatři neviditelného",
+    dmg: "--",
+    range: "Ty sám",
+    time: "až 1h",
+    focus: true,
+  },
+  {
+    id: 3,
+    level: 4,
+    name: "Hniloba",
+    dmg: "8k8",
+    range: "6s",
+    time: "ihned",
+    focus: false,
+  },
+  {
+    id: 4,
+    level: 4,
+    name: "Hniloba",
+    dmg: "8k8",
+    range: "6s",
+    time: "ihned",
+    focus: false,
+  },
+  {
+    id: 5,
+    level: 4,
+    name: "Hniloba",
+    dmg: "2k4",
+    range: "6s",
+    time: "ihned",
+    focus: false,
+  },
+  {
+    id: 6,
+    level: 4,
+    name: "poryv vetru",
+    dmg: "3k8",
+    range: "6s",
+    time: "ihned",
+    focus: false,
+  },
+];
+
+export default data;

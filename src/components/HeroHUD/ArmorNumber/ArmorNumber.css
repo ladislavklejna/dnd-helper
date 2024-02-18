@@ -1,0 +1,13 @@
+.line-thru {
+  text-decoration: 1px red line-through;
+  /* border: 1px solid red; */
+}
+.txt-right {
+  text-align: right;
+}
+.txt-green {
+  color: green;
+}
+.txt-red {
+  color: red;
+}

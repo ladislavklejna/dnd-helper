@@ -4,6 +4,7 @@
 .dice {
   width: 50px;
   height: auto;
+  z-index: 100;
 }
 .round-button {
   border-radius: 50%;

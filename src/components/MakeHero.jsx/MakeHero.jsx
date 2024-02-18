@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Input, Button } from "reactstrap";
+import { Input, Button, Col, Row } from "reactstrap";
 import "./MakeHero.css";
 let bonuses = [];
 const MakeHero = ({ confirmed }) => {
   const [disabled, setDisabled] = useState(false);
   const [nick, setNick] = useState("");
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState("");
 
   const [heroAtributs, setHeroAtributs] = useState({
-    Síla: "20",
-    Obratnost: "15",
-    Odolnost: "8",
-    Inteligence: "8",
-    Moudrost: "16",
-    Charisma: "15",
+    Síla: "",
+    Obratnost: "",
+    Odolnost: "",
+    Inteligence: "",
+    Moudrost: "",
+    Charisma: "",
   });
-  const [live, setLive] = useState(0);
+  const [live, setLive] = useState("");
   const handleOkData = (e) => {
     setHeroAtributs({ ...heroAtributs, [e.target.name]: e.target.value });
   };
@@ -23,8 +23,13 @@ const MakeHero = ({ confirmed }) => {
     localStorage.setItem("hero", JSON.stringify(heroAtributs));
     localStorage.setItem("bonus", JSON.stringify(bonuses));
     localStorage.setItem("name", JSON.stringify(nick));
-    localStorage.setItem("hp", JSON.stringify(live));
-    localStorage.setItem("level", JSON.stringify(level));
+    localStorage.setItem("hp", JSON.stringify(parseInt(live)));
+    localStorage.setItem("level", JSON.stringify(parseInt(level)));
+    if (localStorage.key !== "aktualHp") {
+      localStorage.setItem("aktualHp", JSON.stringify(parseInt(live)));
+    }
+    let ac = 10 + bonuses[1];
+    localStorage.setItem("ac", JSON.stringify(parseInt(ac)));
   };
   const accept = () => {
     for (let key in heroAtributs) {
@@ -58,77 +63,90 @@ const MakeHero = ({ confirmed }) => {
   }, [heroAtributs]);
   console.log(live);
   return (
-    <div>
-      <Input
-        type="number"
-        name="level"
-        onChange={(e) => setLevel(e.target.value)}
-        value={level}
-      />
-      <Input
-        type="number"
-        name="Síla"
-        value={heroAtributs.Síla}
-        min={1}
-        max={20}
-        onChange={handleOkData}
-      />
-      <Input
-        type="number"
-        name="Obratnost"
-        min={1}
-        max={20}
-        onChange={handleOkData}
-        value={heroAtributs.Obratnost}
-      />
-      <Input
-        type="number"
-        name="Odolnost"
-        min={1}
-        max={20}
-        onChange={handleOkData}
-        value={heroAtributs.Odolnost}
-      />
-      <Input
-        type="number"
-        name="Inteligence"
-        min={1}
-        max={20}
-        onChange={handleOkData}
-        value={heroAtributs.Inteligence}
-      />
-      <Input
-        type="number"
-        name="Moudrost"
-        min={1}
-        max={20}
-        onChange={handleOkData}
-        value={heroAtributs.Moudrost}
-      />
-      <Input
-        type="number"
-        name="Charisma"
-        min={1}
-        max={20}
-        onChange={handleOkData}
-        value={heroAtributs.Charisma}
-      />
-      <Input
-        type="number"
-        name="live"
-        min={1}
-        onChange={(e) => setLive(e.target.value)}
-        value={live}
-      />
-      <Input
-        type="text"
-        name="nick"
-        onChange={(e) => setNick(e.target.value)}
-        value={nick}
-      />
-      <Button onClick={accept} disabled={disabled}>
-        OK
-      </Button>
+    <div className="make-hero">
+      <Row>
+        <Col xs={6} className="offset-3">
+          <Input
+            type="number"
+            name="level"
+            onChange={(e) => setLevel(e.target.value)}
+            value={level}
+            placeholder="level"
+          />
+          <Input
+            type="number"
+            name="Síla"
+            value={heroAtributs.Síla}
+            min={1}
+            max={20}
+            onChange={handleOkData}
+            placeholder="Síla"
+          />
+          <Input
+            type="number"
+            name="Obratnost"
+            min={1}
+            max={20}
+            onChange={handleOkData}
+            value={heroAtributs.Obratnost}
+            placeholder="Obratnost"
+          />
+          <Input
+            type="number"
+            name="Odolnost"
+            min={1}
+            max={20}
+            onChange={handleOkData}
+            value={heroAtributs.Odolnost}
+            placeholder="Odolnost"
+          />
+          <Input
+            type="number"
+            name="Inteligence"
+            min={1}
+            max={20}
+            onChange={handleOkData}
+            value={heroAtributs.Inteligence}
+            placeholder="Inteligence"
+          />
+          <Input
+            type="number"
+            name="Moudrost"
+            min={1}
+            max={20}
+            onChange={handleOkData}
+            value={heroAtributs.Moudrost}
+            placeholder="Moudrost"
+          />
+          <Input
+            type="number"
+            name="Charisma"
+            min={1}
+            max={20}
+            onChange={handleOkData}
+            value={heroAtributs.Charisma}
+            placeholder="Charisma"
+          />
+          <Input
+            type="number"
+            name="live"
+            min={1}
+            onChange={(e) => setLive(e.target.value)}
+            value={live}
+            placeholder="Max. životy"
+          />
+          <Input
+            type="text"
+            name="nick"
+            onChange={(e) => setNick(e.target.value)}
+            value={nick}
+            placeholder="Jméno"
+          />
+          <Button className="mt-5" block onClick={accept} disabled={disabled}>
+            OK
+          </Button>
+        </Col>
+      </Row>
     </div>
   );
 };

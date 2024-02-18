@@ -12,7 +12,7 @@ function ModalWin({ onToggle, diceValue, bonusValue, title }, args) {
     <div>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>{title}</ModalHeader>
-        <ModalBody>
+        <ModalBody className="check-rolls">
           {diceValue} {bonusValue < 0 ? "" : "+"} {bonusValue}
           <br></br>= <br></br>
           <div className="text-red">{diceValue + bonusValue}</div>

@@ -3,11 +3,11 @@
   left: 50%;
   transform: translateX(-50%);
 }
-.modal-body {
+.check-rolls {
   text-align: center;
   font-size: 2rem;
 }
-.modal-body .one-badge {
+.check-rolls.one-badge {
   font-size: 1rem;
 }
 .text-red {

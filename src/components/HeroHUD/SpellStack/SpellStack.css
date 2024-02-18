@@ -1,0 +1,23 @@
+.spell-book {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: min-content;
+  background-color: rgb(30, 30, 41);
+  z-index: 15;
+  color: whitesmoke;
+}
+.hi {
+  /* overflow-x: hidden; */
+  text-align: left;
+}
+.one-spell-short {
+  position: relative;
+  width: 100%;
+  height: min-content;
+  background-color: royalblue;
+}
+.text-right {
+  text-align: right;
+}
