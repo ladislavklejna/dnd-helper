@@ -5,6 +5,14 @@ import "./SpellStack.css";
 import data from "./data";
 const SpellStack = () => {
   const [show, setShow] = useState(true);
+  const [showSpec, setShowSpec] = useState(false);
+  const [spellSpecs, setSpellSpecs] = useState(false);
+
+  const handleMore = (idcko) => {
+    let filter = data.filter((x) => x.id === idcko);
+    setSpellSpecs(filter);
+    setShowSpec(!showSpec);
+  };
   return (
     <div className="hi">
       <Button onClick={() => setShow(!show)} color="warning">
@@ -19,7 +27,12 @@ const SpellStack = () => {
             </Button>
           </div>
           {data.map((spell) => (
-            <div className="one-spell-short">
+            <div
+              key={spell.id}
+              onClick={() => handleMore(spell.id)}
+              className="one-spell-short"
+              id={spell.id}
+            >
               <Row>
                 <Col>
                   <h3>{spell.name}</h3>
@@ -49,6 +62,18 @@ const SpellStack = () => {
                   </tr>
                 </tbody>
               </Table>
+            </div>
+          ))}
+        </Container>
+      )}
+      {showSpec && (
+        <Container className="specials">
+          <h2>Specialls</h2>
+          <Button onClick={handleMore}>Close</Button>
+          {spellSpecs.map((xx) => (
+            <div>
+              <h1>{xx.name}</h1>
+              <p>{xx.info}</p>
             </div>
           ))}
         </Container>
