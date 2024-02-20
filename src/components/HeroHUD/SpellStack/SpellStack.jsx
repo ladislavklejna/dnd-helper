@@ -21,7 +21,7 @@ const SpellStack = () => {
       {show && (
         <Container className="spell-book">
           <div>
-            <h1>ahoj</h1>
+            <h1>Kniha kouzel</h1>
             <Button onClick={() => setShow(!show)} color="warning">
               X
             </Button>
@@ -68,12 +68,34 @@ const SpellStack = () => {
       )}
       {showSpec && (
         <Container className="specials">
-          <h2>Specialls</h2>
+          <h2>Specifikace kouzla</h2>
           <Button onClick={handleMore}>Close</Button>
           {spellSpecs.map((xx) => (
             <div>
               <h1>{xx.name}</h1>
-              <p>{xx.info}</p>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>lvl</th>
+                    <th>dosah</th>
+                    <th>trvani</th>
+                    <th>
+                      <GiBrain />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{xx.level}</td>
+                    <td>{xx.range}</td>
+                    <td>{xx.time}</td>
+                    <td>{xx.focus === true ? "ANO" : "NE"}</td>
+                  </tr>
+                </tbody>
+              </Table>
+              {xx.info.map((popis) => (
+                <p>{popis}</p>
+              ))}
             </div>
           ))}
         </Container>
