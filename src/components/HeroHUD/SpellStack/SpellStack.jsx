@@ -3,8 +3,9 @@ import { Button, Container, Row, Col, Table } from "reactstrap";
 import { GiBrain } from "react-icons/gi";
 import "./SpellStack.css";
 import data from "./data";
+import Markdown from "markdown-to-jsx";
 const SpellStack = () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [showSpec, setShowSpec] = useState(false);
   const [spellSpecs, setSpellSpecs] = useState(false);
 
@@ -94,7 +95,9 @@ const SpellStack = () => {
                 </tbody>
               </Table>
               {xx.info.map((popis) => (
-                <p>{popis}</p>
+                <div className="text-justify">
+                  <Markdown>{popis}</Markdown>
+                </div>
               ))}
             </div>
           ))}

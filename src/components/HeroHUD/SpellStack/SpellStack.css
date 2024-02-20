@@ -31,3 +31,10 @@
   background-color: rgb(44, 44, 44);
   z-index: 16;
 }
+.text-justify {
+  text-align: justify;
+}
+.kuk {
+  margin: 0 1ch;
+  color: red;
+}

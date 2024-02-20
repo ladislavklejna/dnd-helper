@@ -25,6 +25,8 @@ const MakeHero = ({ confirmed }) => {
     localStorage.setItem("name", JSON.stringify(nick));
     localStorage.setItem("hp", JSON.stringify(parseInt(live)));
     localStorage.setItem("level", JSON.stringify(parseInt(level)));
+    localStorage.setItem("backpack", JSON.stringify(parseInt([])));
+
     if (localStorage.key !== "aktualHp") {
       localStorage.setItem("aktualHp", JSON.stringify(parseInt(live)));
     }

@@ -7,16 +7,41 @@ import {
   ModalFooter,
   Table,
 } from "reactstrap";
+import "./Inventory.css";
 import AddToInventory from "./AddToInventory";
 
 function Inventory(args) {
   const [modal, setModal] = useState(false);
 
-  const toggle = () => setModal(!modal);
-  const [backpack, setBackpack] = useState([
-    { id: 1, name: "mec", weight: "20", value: "500" },
-  ]);
+  const toggle = () => {
+    setModal(!modal);
+    save();
+  };
+  const dataBackPack = JSON.parse(localStorage.getItem("backpack"));
+  const [backpack, setBackpack] = useState(dataBackPack);
 
+  //  naformatuje cislo na tisice
+  const formatter = new Intl.NumberFormat({
+    style: "currency",
+    currency: "Zl",
+  });
+
+  const save = () => {
+    localStorage.setItem("backpack", JSON.stringify(backpack));
+  };
+  const add = (item) => {
+    if (backpack === null) {
+      setBackpack([item]);
+    } else {
+      setBackpack([...backpack, item]);
+    }
+  };
+
+  const handleDelete = (e) => {
+    const filter = backpack.filter((x) => x.name !== e.target.id);
+    localStorage.setItem("backpack", JSON.stringify(filter));
+    setBackpack(filter);
+  };
   return (
     <div>
       <Button block color="danger" onClick={toggle}>
@@ -27,25 +52,32 @@ function Inventory(args) {
         <ModalBody id="invent">
           <Table>
             <thead>
-              <th>id</th>
               <th>nazev</th>
               <th>vaha</th>
               <th>hodnota</th>
             </thead>
             <tbody>
-              {backpack.map((item) => (
-                <tr>
-                  <td>{item.id}</td>
-                  <td>{item.name}</td>
-                  <td>{item.weight}</td>
-                  <td>{item.value}</td>
-                </tr>
-              ))}
+              {backpack &&
+                backpack.map((item) => (
+                  <tr key={item.name}>
+                    <td>{item.name}</td>
+                    <td>{item.weight}</td>
+                    <td className="zl">{formatter.format(item.value)}</td>
+                    <Button
+                      key={item.name}
+                      id={item.name}
+                      onClick={handleDelete}
+                      color="danger"
+                    >
+                      X
+                    </Button>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </ModalBody>
         <ModalFooter>
-          <AddToInventory />
+          <AddToInventory add={add} />
         </ModalFooter>
       </Modal>
     </div>
