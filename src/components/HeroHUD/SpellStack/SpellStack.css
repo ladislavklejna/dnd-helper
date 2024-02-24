@@ -3,23 +3,53 @@
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 100vh;
   height: min-content;
   background-color: rgb(30, 30, 41);
   z-index: 15;
   color: whitesmoke;
 }
-.hi {
-  /* overflow-x: hidden; */
-  text-align: left;
+.spell-book-exit {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.yes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  height: 16px;
+  width: 16px;
+  background-color: green;
+  border-radius: 50%;
+}
+.no {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  height: 16px;
+  width: 16px;
+  background-color: rgb(128, 0, 0);
+  border-radius: 50%;
 }
 .one-spell-short {
   position: relative;
   width: 100%;
   height: min-content;
   background-color: royalblue;
+  text-align: left;
+}
+.spell-name {
+  margin-left: 10px;
 }
 .text-right {
   text-align: right;
+  margin-right: 10px;
+}
+.relative {
+  position: relative;
 }
 .specials {
   position: fixed;
@@ -37,4 +67,37 @@
 .kuk {
   margin: 0 1ch;
   color: red;
+}
+.table-padding th td {
+  padding: 4;
+}
+.thead-sticky {
+  background-color: black;
+  outline: 2px solid black;
+  padding-top: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.thead-sticky tr {
+  border: 1px solid rgb(255, 255, 255);
+  border: none;
+}
+.cell-level {
+  width: 4rch;
+}
+.cell-range {
+  width: 5rch;
+}
+.cell-duration {
+  width: 8rch;
+}
+.cell-action {
+  width: 8rch;
+}
+.cell-constitution {
+  width: 4rch;
+}
+.cell-save {
+  /* width: 10rch; */
 }
