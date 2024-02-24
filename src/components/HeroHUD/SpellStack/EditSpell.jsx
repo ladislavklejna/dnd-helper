@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import "./AddSpell.css";
 
-function EditSpell({ data, idcko, updateBook }, args) {
+function EditSpell({ data, idcko, updateBook, disabled }, args) {
   const [modal, setModal] = useState(false);
   const [filter, setFilter] = useState(data.filter((fil) => fil.id === idcko));
   const [newSpell, setNewSpell] = useState(filter[0]);
@@ -37,7 +37,12 @@ function EditSpell({ data, idcko, updateBook }, args) {
   };
   return (
     <div>
-      <Button className="add-spell" color="danger" onClick={toggle}>
+      <Button
+        disabled={disabled}
+        className="add-spell"
+        color="danger"
+        onClick={toggle}
+      >
         Upravit
       </Button>
       <Modal isOpen={modal} toggle={toggle} {...args}>

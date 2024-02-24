@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container, Row, Col, Table } from "reactstrap";
+import {
+  Button,
+  Container,
+  Row,
+  Col,
+  Table,
+  FormGroup,
+  Input,
+  Label,
+} from "reactstrap";
 import { GiBrain } from "react-icons/gi";
 import { GiSandsOfTime } from "react-icons/gi";
 import { TbRulerMeasure } from "react-icons/tb";
@@ -14,12 +23,28 @@ const SpellStack = () => {
   if (!localdata) {
     localdata = [];
   }
+  const [state, setState] = useState(false);
   const [data, setData] = useState(localdata);
   const [show, setShow] = useState(false);
   const [showSpec, setShowSpec] = useState(false);
   const [spellSpecs, setSpellSpecs] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const icoSize = 16;
 
+  const handleSearch = (event) => {
+    const { value } = event.target;
+    setSearchQuery(value.trim());
+    let filter;
+    if (value.length >= 3) {
+      filter = data.filter((spell) =>
+        spell.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setData(filter);
+    } else {
+      setData(localdata);
+    }
+  };
   const handleMore = (idcko) => {
     let filter = data.filter((x) => x.id === idcko);
     setSpellSpecs(filter);
@@ -35,13 +60,23 @@ const SpellStack = () => {
     let temp = idcko;
     localStorage.setItem("spells", JSON.stringify(temp));
     setData(temp);
+    setShowSpec(false);
   };
+  const handleDelete = (idcko) => {
+    let arr = data.filter((item) => item.id !== idcko);
+    localStorage.setItem("spells", JSON.stringify(arr));
+    setData(arr);
+    setState(false);
+    setShowSpec(false);
+  };
+  // console.log(data);
+
   useEffect(() => {
     localdata = JSON.parse(localStorage.getItem("spells"));
-    setShowSpec(!showSpec);
-    setShowSpec(!showSpec);
   }, [data]);
-
+  useEffect(() => {
+    setData(localdata);
+  }, [showFilter]);
   return (
     <div className="hi">
       <Button onClick={() => setShow(!show)} color="warning">
@@ -61,6 +96,16 @@ const SpellStack = () => {
                 X
               </Button>
               <AddSpell updateBook={handleUpdate} data={data} />
+              <Button onClick={() => setShowFilter(!showFilter)}>Filtr</Button>
+              {showFilter && (
+                <div className="filtr">
+                  <Input
+                    type="text"
+                    placeholder="3 vice pismen"
+                    onChange={handleSearch}
+                  ></Input>
+                </div>
+              )}
             </div>
             <Table className="table-padding" dark>
               <thead>
@@ -152,7 +197,25 @@ const SpellStack = () => {
                 <Markdown>{xx.info}</Markdown>
               </div>
               {/* ))} */}
-              <EditSpell updateBook={handleEdit} data={data} idcko={xx.id} />
+              <EditSpell
+                updateBook={handleEdit}
+                data={data}
+                idcko={xx.id}
+                disabled={state}
+              />
+              <FormGroup switch>
+                <Input
+                  type="switch"
+                  defaultChecked={state}
+                  onClick={() => {
+                    setState(!state);
+                  }}
+                />
+                <Label check>Odemknout pro smazaní</Label>
+              </FormGroup>
+              <Button disabled={!state} onClick={() => handleDelete(xx.id)}>
+                Delete
+              </Button>
             </div>
           ))}
         </Container>

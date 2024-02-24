@@ -9,6 +9,10 @@
   z-index: 15;
   color: whitesmoke;
 }
+.filtr {
+  height: 100px;
+  background-color: blue;
+}
 .spell-book-exit {
   position: absolute;
   top: 0;
