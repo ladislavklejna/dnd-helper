@@ -13,11 +13,9 @@ import { GiBrain } from "react-icons/gi";
 import { GiSandsOfTime } from "react-icons/gi";
 import { TbRulerMeasure } from "react-icons/tb";
 import "./SpellStack.css";
-// import data from "./data";
 import Markdown from "markdown-to-jsx";
 import AddSpell from "./AddSpell";
 import EditSpell from "./EditSpell";
-// import EditSpell from "./EditSpell";
 const SpellStack = () => {
   let localdata = JSON.parse(localStorage.getItem("spells"));
   if (!localdata) {
@@ -52,6 +50,9 @@ const SpellStack = () => {
   };
   const handleUpdate = (newSpell) => {
     let temp = localdata;
+    if (!localdata) {
+      temp = [];
+    }
     temp.push(newSpell);
     localStorage.setItem("spells", JSON.stringify(temp));
     setData(localdata);
@@ -126,43 +127,44 @@ const SpellStack = () => {
               </thead>
             </Table>
           </div>
-          {data.map((spell) => (
-            <div
-              key={spell.id}
-              onClick={() => handleMore(spell.id)}
-              className="one-spell-short"
-              id={spell.id}
-            >
-              <Row>
-                <Col>
-                  <h3 className="spell-name">{spell.name}</h3>
-                </Col>
-                <Col xs={3} className="text-right">
-                  <h3>{spell.dmg}</h3>
-                </Col>
-              </Row>
+          {data &&
+            data.map((spell) => (
+              <div
+                key={spell.id}
+                onClick={() => handleMore(spell.id)}
+                className="one-spell-short"
+                id={spell.id}
+              >
+                <Row>
+                  <Col>
+                    <h3 className="spell-name">{spell.name}</h3>
+                  </Col>
+                  <Col xs={3} className="text-right">
+                    <h3>{spell.dmg}</h3>
+                  </Col>
+                </Row>
 
-              <Table>
-                <tbody>
-                  <tr className="text-center">
-                    <td className="cell-level">{spell.level}</td>
-                    <td className="cell-range">{spell.range}</td>
-                    <td className="cell-duration">{spell.time}</td>
-                    <td className="cell-action">{spell.action}</td>
+                <Table>
+                  <tbody>
+                    <tr className="text-center">
+                      <td className="cell-level">{spell.level}</td>
+                      <td className="cell-range">{spell.range}</td>
+                      <td className="cell-duration">{spell.time}</td>
+                      <td className="cell-action">{spell.action}</td>
 
-                    <td className="relative cell-constitution">
-                      {spell.focus === "true" ? (
-                        <div className="yes"></div>
-                      ) : (
-                        <div className="no"></div>
-                      )}
-                    </td>
-                    <td className="cell-save">{spell.save}</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </div>
-          ))}
+                      <td className="relative cell-constitution">
+                        {spell.focus === "true" ? (
+                          <div className="yes"></div>
+                        ) : (
+                          <div className="no"></div>
+                        )}
+                      </td>
+                      <td className="cell-save">{spell.save}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            ))}
         </Container>
       )}
       {showSpec && (

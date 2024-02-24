@@ -13,8 +13,9 @@ function EditSpell({ data, idcko, updateBook, disabled }, args) {
   const [modal, setModal] = useState(false);
   const [filter, setFilter] = useState(data.filter((fil) => fil.id === idcko));
   const [newSpell, setNewSpell] = useState(filter[0]);
-
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    setModal(!modal);
+  };
 
   const handleChange = (e) => {
     setNewSpell({ ...newSpell, [e.target.name]: e.target.value });

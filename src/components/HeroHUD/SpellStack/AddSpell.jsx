@@ -47,6 +47,9 @@ function AddSpell({ updateBook, data, id }, args) {
     toggle();
   };
   useEffect(() => {
+    if (!data) {
+      data = [];
+    }
     const newId =
       data.length > 0 ? Math.max(...data.map((all) => all.id)) + 1 : 1;
     setNewSpell((prevState) => ({ ...prevState, id: newId }));
