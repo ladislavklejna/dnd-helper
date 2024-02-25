@@ -719,7 +719,11 @@ const Hero = () => {
         <AccordionItem>
           <AccordionHeader targetId="1">Dovednosti</AccordionHeader>
           <AccordionBody className="no-pad" accordionId="1">
-            <Skills handleSkills={openModal} />
+            <Skills
+              handleSkills={openModal}
+              bonuses={bonuses}
+              proficiencyBonus={profienciBonus}
+            />
           </AccordionBody>
         </AccordionItem>
         <AccordionItem>

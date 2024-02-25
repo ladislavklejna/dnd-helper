@@ -107,7 +107,19 @@ const SpellStack = () => {
                   ></Input>
                 </div>
               )}
+              <Row>
+                <Col>Vlastnost</Col>
+                <Col className="spells-border">Útočný bonus</Col>
+                <Col>SO záchrany</Col>
+              </Row>
+              <hr className="spells-hr" />
+              <Row>
+                <Col>Charisma</Col>
+                <Col className="spells-border">11</Col>
+                <Col>19</Col>
+              </Row>
             </div>
+
             <Table className="table-padding" dark>
               <thead>
                 <tr className="text-center">

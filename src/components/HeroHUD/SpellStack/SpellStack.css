@@ -105,3 +105,12 @@
 .cell-save {
   /* width: 10rch; */
 }
+.spells-border {
+  border-left: 1px solid white;
+}
+.spells-border {
+  border-right: 1px solid white;
+}
+.spells-hr {
+  margin: 1px;
+}

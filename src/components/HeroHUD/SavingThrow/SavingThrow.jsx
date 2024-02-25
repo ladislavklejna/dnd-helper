@@ -51,11 +51,11 @@ const SavingThrow = ({ bonuses, proficiencyBonus, handleClick }) => {
             <p className="saving-text">{x.name}</p>
           </Col>
           {x.active === true ? (
-            <Col className="text-right" xs={2}>
+            <Col className="save-number" xs={1}>
               {bonuses[index] + proficiencyBonus}
             </Col>
           ) : (
-            <Col className="text-right" xs={2}>
+            <Col className="save-number" xs={1}>
               {bonuses[index]}
             </Col>
           )}
