@@ -127,11 +127,10 @@ const Skills = ({ handleSkills }) => {
           <>
             {x.section ? (
               <div key={x.heading}>
-                <h2 className="text-center text-white mt-3">{x.heading}</h2>
+                <h2 className="text-center text-white pt-3">{x.heading}</h2>
                 <hr className="text-white" />
               </div>
             ) : (
-              //   <Table dark>
               <Row
                 key={x.name}
                 onClick={() =>
@@ -150,7 +149,7 @@ const Skills = ({ handleSkills }) => {
                         )}
                       </p>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={7}>
                       <p className="skill-text">{x.name}</p>
                     </Col>
                   </>
@@ -166,14 +165,12 @@ const Skills = ({ handleSkills }) => {
                         )}
                       </p>
                     </Col>
-                    <Col xs={6}>
-                      {" "}
+                    <Col xs={7}>
                       <p className="skill-text">{x.name}</p>
                     </Col>
                   </>
                 )}
               </Row>
-              //   </Table>
             )}
           </>
         ))}

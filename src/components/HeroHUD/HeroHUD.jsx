@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 import "./HeroHUD.css";
 import { FaHeartPulse } from "react-icons/fa6";
 import Inventory from "./Inventory";
-import { Row, Col, Button, Input, Progress } from "reactstrap";
+import {
+  Row,
+  Col,
+  Button,
+  Input,
+  Progress,
+  UncontrolledAccordion,
+  AccordionBody,
+  AccordionHeader,
+  AccordionItem,
+} from "reactstrap";
 import ModalWin from "./ModalWin";
 import CommaButtons from "./CommaButtons";
 import ArmorNumber from "./ArmorNumber/ArmorNumber";
 import SpellStack from "./SpellStack/SpellStack";
 import Skills from "./Skills/Skills";
+import SavingThrow from "./SavingThrow/SavingThrow";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
   const [dmgOrHealValue, setDmgOrHealValue] = useState("");
@@ -384,6 +395,100 @@ const Hero = () => {
 
         break;
       }
+      //zachranne hody
+      case "Síla-save": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[0]);
+        setShowModal(!showModal);
+        setTitle("ZH na sílu");
+
+        break;
+      }
+      case "Obratnost-save": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[1]);
+        setShowModal(!showModal);
+        setTitle("ZH na obratnost");
+
+        break;
+      }
+      case "Odolnost-save": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[2]);
+        setShowModal(!showModal);
+        setTitle("ZH na odolnost");
+
+        break;
+      }
+      case "Inteligence-save": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[3]);
+        setShowModal(!showModal);
+        setTitle("ZH na inteligenci");
+
+        break;
+      }
+      case "Moudrost-save": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[4]);
+        setShowModal(!showModal);
+        setTitle("ZH na moudrost");
+
+        break;
+      }
+      case "Charisma-save": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[5]);
+        setShowModal(!showModal);
+        setTitle("ZH na charisma");
+
+        break;
+      }
+      case "Síla-save": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[0]);
+        setShowModal(!showModal);
+        setTitle("ZH na sílu");
+
+        break;
+      }
       default:
         break;
     }
@@ -610,7 +715,24 @@ const Hero = () => {
         dexBonus={bonuses[1]}
         onAct={onAct}
       />
-      <Skills handleSkills={openModal} />
+      <UncontrolledAccordion className="mt-5">
+        <AccordionItem>
+          <AccordionHeader targetId="1">Dovednosti</AccordionHeader>
+          <AccordionBody className="no-pad" accordionId="1">
+            <Skills handleSkills={openModal} />
+          </AccordionBody>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionHeader targetId="2">Zachranne hody</AccordionHeader>
+          <AccordionBody className="no-pad" accordionId="2">
+            <SavingThrow
+              bonuses={bonuses}
+              proficiencyBonus={profienciBonus}
+              handleClick={openModal}
+            />
+          </AccordionBody>
+        </AccordionItem>
+      </UncontrolledAccordion>
     </div>
   );
 };
