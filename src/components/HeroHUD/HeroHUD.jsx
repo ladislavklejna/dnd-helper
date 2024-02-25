@@ -7,6 +7,7 @@ import ModalWin from "./ModalWin";
 import CommaButtons from "./CommaButtons";
 import ArmorNumber from "./ArmorNumber/ArmorNumber";
 import SpellStack from "./SpellStack/SpellStack";
+import Skills from "./Skills/Skills";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
   const [dmgOrHealValue, setDmgOrHealValue] = useState("");
@@ -26,7 +27,7 @@ const Hero = () => {
   const [title, setTitle] = useState("");
   const [hp, setHp] = useState(aktHp);
   const [showArmorNumber, setShowArmorNumber] = useState(false);
-
+  const [profOrQuali, setProfOrQuali] = useState();
   const iniciativa = bonuses[1];
 
   const storeActualHP = (hpcka) => {
@@ -36,7 +37,6 @@ const Hero = () => {
     setWindowHpShow(!windowHpShow);
     storeActualHP(hp);
   };
-  console.log(ac);
   const heal = () => {
     if (hp + dmgOrHealValue >= maxHp) {
       setHp(maxHp);
@@ -61,13 +61,14 @@ const Hero = () => {
   const D20 = () => {
     return Math.floor(Math.random() * 20 + 1);
   };
-  const openModal = (btnID) => {
+  const openModal = (btnID, proficiency, qualification) => {
     switch (btnID) {
       case "btn-initiative": {
         setDice(D20());
         setBonus(iniciativa);
         setShowModal(!showModal);
         setTitle("Iniciativa");
+        setProfOrQuali(null);
         break;
       }
       case "Síla-check": {
@@ -75,6 +76,7 @@ const Hero = () => {
         setBonus(bonuses[0]);
         setShowModal(!showModal);
         setTitle("Ověření síly");
+        setProfOrQuali(null);
         break;
       }
       case "Obratnost-check": {
@@ -82,6 +84,7 @@ const Hero = () => {
         setBonus(bonuses[1]);
         setShowModal(!showModal);
         setTitle("Ověření obratnosti");
+        setProfOrQuali(null);
         break;
       }
       case "Odolnost-check": {
@@ -89,6 +92,7 @@ const Hero = () => {
         setBonus(bonuses[2]);
         setShowModal(!showModal);
         setTitle("Ověření odolnosti");
+        setProfOrQuali(null);
         break;
       }
       case "Inteligence-check": {
@@ -96,6 +100,7 @@ const Hero = () => {
         setBonus(bonuses[3]);
         setShowModal(!showModal);
         setTitle("Ověření inteligence");
+        setProfOrQuali(null);
         break;
       }
       case "Moudrost-check": {
@@ -103,6 +108,7 @@ const Hero = () => {
         setBonus(bonuses[4]);
         setShowModal(!showModal);
         setTitle("Ověření moudrosti");
+        setProfOrQuali(null);
         break;
       }
       case "Charisma-check": {
@@ -110,6 +116,272 @@ const Hero = () => {
         setBonus(bonuses[5]);
         setShowModal(!showModal);
         setTitle("Ověření charisma");
+        setProfOrQuali(null);
+        break;
+      }
+      ////////////SKILLS\\\\\\\\\\\\\\\\\\\
+      //síla
+      case "Atletika": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[0]);
+        setShowModal(!showModal);
+        setTitle("Atletika");
+        break;
+      }
+      //obratnost
+      case "Akrobacie": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[1]);
+        setShowModal(!showModal);
+        setTitle("Akrobacie");
+        break;
+      }
+      case "Čachry": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[1]);
+        setShowModal(!showModal);
+        setTitle("Čachry");
+        break;
+      }
+      case "Nenápadnost": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[1]);
+        setShowModal(!showModal);
+        setTitle("Nenápadnost");
+        break;
+      }
+      //inteligence
+      case "Historie": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[3]);
+        setShowModal(!showModal);
+        setTitle("Historie");
+        break;
+      }
+      case "Mystika": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[3]);
+        setShowModal(!showModal);
+        setTitle("Mystika");
+        break;
+      }
+      case "Náboženství": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[3]);
+        setShowModal(!showModal);
+        setTitle("Náboženství");
+        break;
+      }
+      case "Pátrání": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[3]);
+        setShowModal(!showModal);
+        setTitle("Pátrání");
+        break;
+      }
+      case "Příroda": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[3]);
+        setShowModal(!showModal);
+        setTitle("Příroda");
+
+        break;
+      }
+      //moudrost
+      case "Lékařství": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[4]);
+        setShowModal(!showModal);
+        setTitle("Lékařství");
+
+        break;
+      }
+      case "Ovládání zvířat": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[4]);
+        setShowModal(!showModal);
+        setTitle("Ovládání zvířat");
+
+        break;
+      }
+      case "Přežití": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[4]);
+        setShowModal(!showModal);
+        setTitle("Přežití");
+
+        break;
+      }
+      case "Vhled": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[4]);
+        setShowModal(!showModal);
+        setTitle("Vhled");
+
+        break;
+      }
+      case "Vnímání": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[4]);
+        setShowModal(!showModal);
+        setTitle("Vnímání");
+
+        break;
+      }
+      //charisma
+      case "Klamání": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[5]);
+        setShowModal(!showModal);
+        setTitle("Klamání");
+
+        break;
+      }
+      case "Přesvědčování": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[5]);
+        setShowModal(!showModal);
+        setTitle("Přesvědčování");
+
+        break;
+      }
+      case "Vystupování": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[5]);
+        setShowModal(!showModal);
+        setTitle("Vystupování");
+        break;
+      }
+      case "Zastrašování": {
+        setDice(D20());
+        if (proficiency === true) {
+          setProfOrQuali(profienciBonus);
+        } else if (qualification === true) {
+          setProfOrQuali(profienciBonus * 2);
+        } else {
+          setProfOrQuali(null);
+        }
+        setBonus(bonuses[5]);
+        setShowModal(!showModal);
+        setTitle("Zastrašování");
+
         break;
       }
       default:
@@ -330,6 +602,7 @@ const Hero = () => {
         diceValue={dice}
         bonusValue={bonus}
         title={title}
+        profienciBonus={profOrQuali}
       />
 
       <ArmorNumber
@@ -337,6 +610,7 @@ const Hero = () => {
         dexBonus={bonuses[1]}
         onAct={onAct}
       />
+      <Skills handleSkills={openModal} />
     </div>
   );
 };

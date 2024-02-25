@@ -77,7 +77,7 @@ const SpellStack = () => {
   }, [data]);
   useEffect(() => {
     setData(localdata);
-  }, [showFilter]);
+  }, [showFilter, show]);
   return (
     <div className="hi">
       <Button onClick={() => setShow(!show)} color="warning">
