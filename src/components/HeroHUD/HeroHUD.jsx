@@ -412,7 +412,7 @@ const Hero = () => {
     setOc(id);
   };
   return (
-    <div className="pt-3">
+    <div className="pt-3 no-interaction">
       <Row className="text-center mb-3">
         <Col>
           <Button className="mb-3" onClick={() => setShowRests(true)}>

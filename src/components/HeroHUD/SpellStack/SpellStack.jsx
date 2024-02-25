@@ -55,7 +55,7 @@ const SpellStack = () => {
     }
     temp.push(newSpell);
     localStorage.setItem("spells", JSON.stringify(temp));
-    setData(localdata);
+    setData(temp);
   };
   const handleEdit = (idcko) => {
     let temp = idcko;

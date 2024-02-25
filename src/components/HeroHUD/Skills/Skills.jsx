@@ -122,7 +122,7 @@ const Skills = ({ handleSkills }) => {
   };
   return (
     <div className="skills">
-      <Container>
+      <Container className="no-interaction">
         {data.map((x) => (
           <>
             {x.section ? (

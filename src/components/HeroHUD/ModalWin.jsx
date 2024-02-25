@@ -14,7 +14,7 @@ function ModalWin(
   }, [onToggle]);
   return (
     <div>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} className="no-interaction">
         <ModalHeader toggle={toggle}>{title}</ModalHeader>
         <ModalBody className="check-rolls">
           <div className="vypis">
