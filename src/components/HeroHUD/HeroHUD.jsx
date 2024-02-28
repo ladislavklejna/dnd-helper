@@ -524,7 +524,7 @@ const Hero = () => {
             Odpocinek
           </Button>
           <Inventory />
-          <SpellStack />
+          <SpellStack bonus={bonuses[5]} zb={profienciBonus} />
         </Col>
         <Col>
           <img className="avatar" src="foto.png" />
@@ -556,12 +556,6 @@ const Hero = () => {
                 >
                   Zranění
                 </Button>
-                {/* <MyButton
-                      id={"damage"}
-                      color={"danger"}
-                      label={"Zranění"}
-                      buttonHandler={handleButton}
-                    /> */}
               </Col>
               <Col>
                 <FaHeartPulse size={60} />

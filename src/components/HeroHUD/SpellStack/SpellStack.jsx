@@ -8,6 +8,10 @@ import {
   FormGroup,
   Input,
   Label,
+  Accordion,
+  AccordionBody,
+  AccordionHeader,
+  AccordionItem,
 } from "reactstrap";
 import { GiBrain } from "react-icons/gi";
 import { GiSandsOfTime } from "react-icons/gi";
@@ -16,7 +20,8 @@ import "./SpellStack.css";
 import Markdown from "markdown-to-jsx";
 import AddSpell from "./AddSpell";
 import EditSpell from "./EditSpell";
-const SpellStack = () => {
+import Slots from "./Slots";
+const SpellStack = ({ zb, bonus }) => {
   let localdata = JSON.parse(localStorage.getItem("spells"));
   if (!localdata) {
     localdata = [];
@@ -71,7 +76,14 @@ const SpellStack = () => {
     setShowSpec(false);
   };
   // console.log(data);
-
+  const [open, setOpen] = useState("1");
+  const toggle = (id) => {
+    if (open === id) {
+      setOpen();
+    } else {
+      setOpen(id);
+    }
+  };
   useEffect(() => {
     localdata = JSON.parse(localStorage.getItem("spells"));
   }, [data]);
@@ -115,10 +127,18 @@ const SpellStack = () => {
               <hr className="spells-hr" />
               <Row>
                 <Col>Charisma</Col>
-                <Col className="spells-border">11</Col>
-                <Col>19</Col>
+                <Col className="spells-border">{bonus + zb}</Col>
+                <Col>{bonus + zb + 8}</Col>
               </Row>
             </div>
+            <Accordion open={open} toggle={toggle}>
+              <AccordionItem>
+                <AccordionHeader targetId="1">Pozice kouzel</AccordionHeader>
+                <AccordionBody accordionId="1">
+                  <Slots />
+                </AccordionBody>
+              </AccordionItem>
+            </Accordion>
 
             <Table className="table-padding" dark>
               <thead>
@@ -217,7 +237,7 @@ const SpellStack = () => {
                 idcko={xx.id}
                 disabled={state}
               />
-              <FormGroup switch>
+              <FormGroup className="mt-5" switch>
                 <Input
                   type="switch"
                   defaultChecked={state}
