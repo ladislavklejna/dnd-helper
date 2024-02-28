@@ -50,7 +50,9 @@ const Slots = () => {
 
     // Získáme aktuální stav položky
     const item = updatedData[index];
-
+    if (item.position[slot] === "disabled") {
+      return;
+    }
     // Vytvoříme kopii stavu slotu pro úpravy
     const updatedPosition = { ...item.position };
 
