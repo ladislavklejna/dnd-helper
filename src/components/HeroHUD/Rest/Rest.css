@@ -1,0 +1,39 @@
+.rest {
+  color: rgb(255, 255, 255);
+  padding: 10px;
+}
+.rest-radio {
+  display: flex;
+  margin: 0 auto;
+}
+.one-rest {
+  min-height: 220px;
+}
+.active-rest {
+  outline: 2px solid red;
+  background-color: rgba(241, 14, 60, 0.288);
+  border-radius: 20px;
+}
+.form-check-input[type="radio"] {
+  width: 30px;
+  height: 30px;
+}
+.rest-btn {
+  width: 50%;
+  margin: 20px auto;
+}
+.overlay {
+  position: absolute;
+  background-color: darkgreen;
+  border: 2px solid lawngreen;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+}
+.overlay-btn {
+  position: absolute;
+  width: 100px;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}

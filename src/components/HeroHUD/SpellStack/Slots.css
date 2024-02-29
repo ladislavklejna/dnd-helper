@@ -17,11 +17,11 @@
   user-select: none;
   z-index: -1;
 }
-.form-check-input {
+/* .form-check-input {
   margin: 0;
   width: 100%;
   height: 25px;
-}
+} */
 .used {
   background-color: red;
 }

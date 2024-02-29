@@ -19,6 +19,7 @@ import ArmorNumber from "./ArmorNumber/ArmorNumber";
 import SpellStack from "./SpellStack/SpellStack";
 import Skills from "./Skills/Skills";
 import SavingThrow from "./SavingThrow/SavingThrow";
+import Rest from "./Rest/Rest";
 const Hero = () => {
   const [windowHpShow, setWindowHpShow] = useState(false);
   const [dmgOrHealValue, setDmgOrHealValue] = useState("");
@@ -69,9 +70,14 @@ const Hero = () => {
     }
     setDmgOrHealValue("");
   };
+  //predelat d20 na universal dice
   const D20 = () => {
     return Math.floor(Math.random() * 20 + 1);
   };
+  const universalDice = (max) => {
+    return Math.floor(Math.random() * max + 1);
+  };
+  //predelat d20 na universal dice
   const openModal = (btnID, proficiency, qualification) => {
     switch (btnID) {
       case "btn-initiative": {
@@ -493,8 +499,68 @@ const Hero = () => {
         break;
     }
   };
+  ////////////////////////////////// REST \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   const [showRests, setShowRests] = useState(false);
+  const [oneByOne, setOnebyOne] = useState([]);
 
+  const [restOverlay, setRestOverlay] = useState(false);
+  const hideRest = () => {
+    setShowRests(false);
+  };
+  const handleOverLay = () => {
+    setRestOverlay(false);
+    setOnebyOne([]);
+    hideRest();
+  };
+  // do budoucna value + velikost kostky
+  const handleRest = (value) => {
+    //hodnota pro long je number 111
+    if (value === 111) {
+      setHp(maxHp);
+      let updatedSpellSlots = JSON.parse(localStorage.getItem("slots"));
+      // console.log(updatedSpellSlots);
+
+      updatedSpellSlots = updatedSpellSlots.map((slot) => {
+        // Kontrola, zda má slot vlastnost position
+        if (slot.position) {
+          // Vytvoření kopie objektu position
+          const updatedPosition = { ...slot.position };
+
+          // Projdeme všechny vlastnosti position
+          for (let key in updatedPosition) {
+            // Pokud je hodnota "used", aktualizujeme ji na "ok"
+            if (updatedPosition[key] === "used") {
+              updatedPosition[key] = "ok";
+            }
+          }
+
+          // Vytvoření nového objektu slotu s aktualizovanou vlastností position
+          return { ...slot, position: updatedPosition };
+        } else {
+          // Pokud slot nemá vlastnost position, vrátíme ho beze změn
+          return slot;
+        }
+      });
+      localStorage.setItem("slots", JSON.stringify(updatedSpellSlots));
+      setRestOverlay(true);
+    } else {
+      let short = 0;
+      let oneByOne = [];
+      for (let i = 0; i < value; i++) {
+        let random = universalDice(6);
+        oneByOne.push(random);
+        short += random;
+      }
+      if (hp + short >= maxHp) {
+        setHp(maxHp);
+      } else {
+        setHp(hp + short);
+      }
+      //vypis hozenych kostek
+      setOnebyOne(oneByOne);
+      setRestOverlay(true);
+    }
+  };
   useEffect(() => {
     if (level <= 4) {
       setProfienciBonus(2);
@@ -516,6 +582,10 @@ const Hero = () => {
   const onAct = (id) => {
     setOc(id);
   };
+  useEffect(() => {
+    localStorage.setItem("aktualHp", JSON.stringify(hp));
+  }, [hp]);
+
   return (
     <div className="pt-3 no-interaction">
       <Row className="text-center mb-3">
@@ -634,19 +704,14 @@ const Hero = () => {
 
       {/* ODPOCINEK */}
       {showRests && (
-        <div>
-          <Row className="rest-option">
-            <Col>
-              <Button>Short</Button>
-            </Col>
-            <Col>
-              <Button>Long</Button>
-            </Col>
-          </Row>
-          <Row>
-            <Button onClick={() => setShowRests(false)}>Potvrdit</Button>
-          </Row>
-        </div>
+        <Rest
+          hideRest={hideRest}
+          level={level}
+          rest={handleRest}
+          overlay={restOverlay}
+          shortDices={oneByOne}
+          handleOverLay={handleOverLay}
+        />
       )}
       {/* jinou tridu a bude tady iniciativa ZB a Oč */}
       <Row className="profienci-div">
