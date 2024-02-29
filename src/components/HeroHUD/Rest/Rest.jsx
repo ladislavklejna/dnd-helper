@@ -23,7 +23,7 @@ const Rest = ({
   };
   const handleInput = (e) => {
     let value = e.target.value;
-    if (value.trim() !== "" && value <= level) {
+    if (value.trim() !== "" && value <= level && value > 0) {
       setValue(parseInt(e.target.value));
       setDisable(false);
     } else {
@@ -49,7 +49,7 @@ const Rest = ({
     <div className="relative">
       {overlay && (
         <div className="overlay">
-          {celkem !== 0 ? (
+          {celkem > 0 ? (
             <>
               <h1 className="text-center mt-5">{shortDices.join(" + ")}</h1>
               <h1 className="text-center mt-2">=</h1>
