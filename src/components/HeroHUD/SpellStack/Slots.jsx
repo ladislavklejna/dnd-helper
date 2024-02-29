@@ -13,17 +13,7 @@ import "./Slots.css";
 //   [1],
 //   [1],
 // ];
-const data = [
-  { lvl: 1, position: { A: "ok", B: "used", C: "ok", D: "ok" } },
-  { lvl: 2, position: { A: "ok", B: "ok", C: "ok" } },
-  { lvl: 3, position: { A: "ok", B: "used", C: "used" } },
-  { lvl: 4, position: { A: "ok", B: "ok", C: "used" } },
-  { lvl: 5, position: { A: "ok", B: "disabled", C: "disabled" } },
-  { lvl: 6, position: { A: "disabled", B: "disabled" } },
-  { lvl: 7, position: { A: "disabled", B: "disabled" } },
-  { lvl: 8, position: { A: "disabled" } },
-  { lvl: 9, position: { A: "disabled" } },
-];
+
 const Slots = () => {
   const temp = JSON.parse(localStorage.getItem("slots"));
   const [dta, setDta] = useState(temp);
@@ -36,36 +26,66 @@ const Slots = () => {
   //       console.log(editObject.position[slot]);
   //     }
   //   };
-  const handleClick = (id, slot) => {
-    // Najděte index položky s odpovídajícím id
-    const index = dta.findIndex((item) => item.lvl === id);
+  //   const handleClick = (id, slot) => {
+  //     // Najděte index položky s odpovídajícím id
+  //     const index = dta.findIndex((item) => item.lvl === id);
 
-    // Pokud index není nalezen, ukončíme funkci
+  //     // Pokud index není nalezen, ukončíme funkci
+  //     if (index === -1) {
+  //       return;
+  //     }
+
+  //     // Vytvoříme kopii objektu, na kterém budeme provádět změny
+  //     const updatedData = [...dta];
+
+  //     // Získáme aktuální stav položky
+  //     const item = updatedData[index];
+  //     if (item.position[slot] === "disabled") {
+  //       return;
+  //     }
+  //     // Vytvoříme kopii stavu slotu pro úpravy
+  //     const updatedPosition = { ...item.position };
+
+  //     // Aktualizujeme stav slotu podle toho, zda je "used" nebo "ok"
+  //     updatedPosition[slot] = updatedPosition[slot] === "used" ? "ok" : "used";
+
+  //     // Aktualizujeme stav položky s novými údaji slotu
+  //     const updatedItem = { ...item, position: updatedPosition };
+
+  //     // Aktualizujeme pole s daty na základě indexu
+  //     updatedData[index] = updatedItem;
+
+  //     // Aktualizujeme stav pomocí setDta
+  //     setDta(updatedData);
+  //   };
+  const handleClick = (id, slot) => {
+    const index = dta.findIndex((item) => item.lvl === id);
     if (index === -1) {
+      return; // Pokud index není nalezen, ukončíme funkci
+    }
+
+    const updatedData = [...dta];
+    const item = updatedData[index];
+
+    // Kontrola, zda je item.position definováno
+    if (!item.position) {
       return;
     }
 
-    // Vytvoříme kopii objektu, na kterém budeme provádět změny
-    const updatedData = [...dta];
+    // Pokud slot není definován, ukončíme funkci
+    if (!item.position[slot]) {
+      return;
+    }
 
-    // Získáme aktuální stav položky
-    const item = updatedData[index];
+    // Pokud je slot "disabled", nebudeme provádět žádné změny
     if (item.position[slot] === "disabled") {
       return;
     }
-    // Vytvoříme kopii stavu slotu pro úpravy
+
     const updatedPosition = { ...item.position };
-
-    // Aktualizujeme stav slotu podle toho, zda je "used" nebo "ok"
     updatedPosition[slot] = updatedPosition[slot] === "used" ? "ok" : "used";
-
-    // Aktualizujeme stav položky s novými údaji slotu
     const updatedItem = { ...item, position: updatedPosition };
-
-    // Aktualizujeme pole s daty na základě indexu
     updatedData[index] = updatedItem;
-
-    // Aktualizujeme stav pomocí setDta
     setDta(updatedData);
   };
 
@@ -78,11 +98,12 @@ const Slots = () => {
       <Table>
         <thead>
           <tr>
-            {dta.map((item, index) => (
+            {dta.map((_, index) => (
               <th key={index}>{index + 1}</th>
             ))}
           </tr>
         </thead>
+
         <tbody>
           <tr>
             {dta.map((item) => (

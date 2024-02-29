@@ -2,6 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Input, Button, Col, Row } from "reactstrap";
 import "./MakeHero.css";
 let bonuses = [];
+const slots = [
+  { lvl: 1, position: { A: "ok", B: "used", C: "ok", D: "ok" } },
+  { lvl: 2, position: { A: "ok", B: "ok", C: "ok" } },
+  { lvl: 3, position: { A: "ok", B: "used", C: "used" } },
+  { lvl: 4, position: { A: "ok", B: "ok", C: "used" } },
+  { lvl: 5, position: { A: "ok", B: "disabled", C: "disabled" } },
+  { lvl: 6, position: { A: "disabled", B: "disabled" } },
+  { lvl: 7, position: { A: "disabled", B: "disabled" } },
+  { lvl: 8, position: { A: "disabled" } },
+  { lvl: 9, position: { A: "disabled" } },
+];
 const MakeHero = ({ confirmed }) => {
   const [disabled, setDisabled] = useState(false);
   const [nick, setNick] = useState("");
@@ -27,6 +38,7 @@ const MakeHero = ({ confirmed }) => {
     localStorage.setItem("level", JSON.stringify(parseInt(level)));
     localStorage.setItem("backpack", JSON.stringify(parseInt([])));
     localStorage.setItem("spells", JSON.stringify(parseInt([])));
+    localStorage.setItem("slots", JSON.stringify(slots));
     if (localStorage.key !== "aktualHp") {
       localStorage.setItem("aktualHp", JSON.stringify(parseInt(live)));
     }
