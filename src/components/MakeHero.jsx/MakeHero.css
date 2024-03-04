@@ -1,4 +1,16 @@
 .make-hero Input {
   margin-top: 5px;
   margin-bottom: 5px;
+  text-align: center;
+}
+.form-floating label {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.label-red {
+  font-weight: 600;
+  color: var(--bs-danger);
+  text-align: center;
 }

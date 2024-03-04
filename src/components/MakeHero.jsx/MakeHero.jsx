@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input, Button, Col, Row } from "reactstrap";
+import { Input, Button, Col, Row, FormGroup, Label } from "reactstrap";
 import "./MakeHero.css";
 let bonuses = [];
 const slots = [
@@ -52,9 +52,14 @@ const MakeHero = ({ confirmed }) => {
     save();
     confirmed(true);
   };
-  console.log(heroAtributs);
   useEffect(() => {
     const inputsOK =
+      nick.trim().length >= 3 &&
+      level.trim() !== "" &&
+      parseInt(level) > 0 &&
+      parseInt(level) < 21 &&
+      live.trim() !== "" &&
+      parseInt(live) > 0 &&
       heroAtributs.Síla.trim() !== "" &&
       parseInt(heroAtributs.Síla) > 0 &&
       parseInt(heroAtributs.Síla) < 21 &&
@@ -74,19 +79,25 @@ const MakeHero = ({ confirmed }) => {
       parseInt(heroAtributs.Charisma) > 0 &&
       parseInt(heroAtributs.Charisma) < 21;
     setDisabled(!inputsOK);
-  }, [heroAtributs]);
-  console.log(live);
+  }, [heroAtributs, level, nick, live]);
   return (
     <div className="make-hero">
+      {/* <Race /> */}
       <Row>
         <Col xs={6} className="offset-3">
+          <h1 className="text-center my-3 white">Tvorba postavy</h1>
+
           <Input
             type="number"
             name="level"
             onChange={(e) => setLevel(e.target.value)}
             value={level}
-            placeholder="level"
+            placeholder="Úroveň"
+            id="level"
+            valid={level > 0 && level < 21}
+            invalid={level !== "" ? level < 1 || level > 20 : ""}
           />
+
           <Input
             type="number"
             name="Síla"
@@ -95,6 +106,12 @@ const MakeHero = ({ confirmed }) => {
             max={20}
             onChange={handleOkData}
             placeholder="Síla"
+            valid={heroAtributs.Síla > 0 && heroAtributs.Síla < 21}
+            invalid={
+              heroAtributs.Síla !== ""
+                ? heroAtributs.Síla < 1 || heroAtributs.Síla > 20
+                : ""
+            }
           />
           <Input
             type="number"
@@ -104,6 +121,12 @@ const MakeHero = ({ confirmed }) => {
             onChange={handleOkData}
             value={heroAtributs.Obratnost}
             placeholder="Obratnost"
+            valid={heroAtributs.Obratnost > 0 && heroAtributs.Obratnost < 21}
+            invalid={
+              heroAtributs.Obratnost !== ""
+                ? heroAtributs.Obratnost < 1 || heroAtributs.Obratnost > 20
+                : ""
+            }
           />
           <Input
             type="number"
@@ -113,6 +136,12 @@ const MakeHero = ({ confirmed }) => {
             onChange={handleOkData}
             value={heroAtributs.Odolnost}
             placeholder="Odolnost"
+            valid={heroAtributs.Odolnost > 0 && heroAtributs.Odolnost < 21}
+            invalid={
+              heroAtributs.Odolnost !== ""
+                ? heroAtributs.Odolnost < 1 || heroAtributs.Odolnost > 20
+                : ""
+            }
           />
           <Input
             type="number"
@@ -122,6 +151,14 @@ const MakeHero = ({ confirmed }) => {
             onChange={handleOkData}
             value={heroAtributs.Inteligence}
             placeholder="Inteligence"
+            valid={
+              heroAtributs.Inteligence > 0 && heroAtributs.Inteligence < 21
+            }
+            invalid={
+              heroAtributs.Inteligence !== ""
+                ? heroAtributs.Inteligence < 1 || heroAtributs.Inteligence > 20
+                : ""
+            }
           />
           <Input
             type="number"
@@ -131,6 +168,12 @@ const MakeHero = ({ confirmed }) => {
             onChange={handleOkData}
             value={heroAtributs.Moudrost}
             placeholder="Moudrost"
+            valid={heroAtributs.Moudrost > 0 && heroAtributs.Moudrost < 21}
+            invalid={
+              heroAtributs.Moudrost !== ""
+                ? heroAtributs.Moudrost < 1 || heroAtributs.Moudrost > 20
+                : ""
+            }
           />
           <Input
             type="number"
@@ -140,6 +183,12 @@ const MakeHero = ({ confirmed }) => {
             onChange={handleOkData}
             value={heroAtributs.Charisma}
             placeholder="Charisma"
+            valid={heroAtributs.Charisma > 0 && heroAtributs.Charisma < 21}
+            invalid={
+              heroAtributs.Charisma !== ""
+                ? heroAtributs.Charisma < 1 || heroAtributs.Charisma > 20
+                : ""
+            }
           />
           <Input
             type="number"
@@ -148,6 +197,8 @@ const MakeHero = ({ confirmed }) => {
             onChange={(e) => setLive(e.target.value)}
             value={live}
             placeholder="Max. životy"
+            valid={live > 0}
+            invalid={live !== "" ? live < 1 : ""}
           />
           <Input
             type="text"
@@ -155,9 +206,17 @@ const MakeHero = ({ confirmed }) => {
             onChange={(e) => setNick(e.target.value)}
             value={nick}
             placeholder="Jméno"
+            valid={nick.length >= 3}
+            invalid={nick !== "" ? nick.length < 3 : ""}
           />
-          <Button className="mt-5" block onClick={accept} disabled={disabled}>
-            OK
+          <Button
+            className="mt-5"
+            block
+            onClick={accept}
+            color={disabled === true ? "secondary" : "danger"}
+            disabled={disabled}
+          >
+            Vytvořit
           </Button>
         </Col>
       </Row>

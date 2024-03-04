@@ -15,3 +15,6 @@ p {
 .no-interaction {
   user-select: none;
 }
+.white {
+  color: white;
+}
